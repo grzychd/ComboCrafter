@@ -1078,7 +1078,7 @@ const tricks = [
     startWeight: 20,
     middleWeight: 20,
     endWeight: 20,
-    skillLimits: {body varial: 180},
+    skillLimits: {"body varial": 180},
     footPosition: { start: [pos1, pos2, pos3, pos4], end: [pos1, pos2, pos3, pos4] }
   },
   /* ---------- Jams ---------- */
