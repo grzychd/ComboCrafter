@@ -5,7 +5,7 @@ const pos1 = "Front foot inside",
       pos4 = "Back foot outside";
 
 /* ---------- TRICKS DATA ---------- */
-window.tricks = [
+const tricks = [
   {
   /* ---------- Crankflips / Flip + Spins ---------- */
     name: "Crankflip",
@@ -1148,6 +1148,7 @@ window.tricks = [
     footPosition: { start: [pos1, pos2, pos3, pos4], end: [pos1, pos2, pos3, pos4] }
   },
 ];
+window.tricks = tricks;
 
 // userSettings is assumed to be an object storing the max values from settings.html
 // Example:
