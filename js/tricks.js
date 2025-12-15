@@ -5,7 +5,7 @@ const pos1 = "Front foot inside",
       pos4 = "Back foot outside";
 
 /* ---------- TRICKS DATA ---------- */
-const tricks = [
+window.tricks = [
   {
   /* ---------- Crankflips / Flip + Spins ---------- */
     name: "Crankflip",
