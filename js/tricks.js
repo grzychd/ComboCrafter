@@ -1049,7 +1049,7 @@ window.tricks = [
   {
     name: "Side jump",
     category: ["Side"],
-    description: ["Typically riding with your seat in front and backward, jump off of the pedals and wrap your leg around "
+    description: ["Typically riding with your seat in front and backward, jump off of the pedals and wrap your leg around ",
         "your seat in the air. Then land seat in with both feet on pedals or cranks."
         ].join("<br>"),
     startCombo: true,
