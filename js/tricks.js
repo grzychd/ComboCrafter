@@ -1067,7 +1067,7 @@ const tricks = [
   {
     name: "Body varial",
     category: ["Body varial"],
-    description: ["Typically while riding, jump off of your unicycle with both feet leaving the pedals, and twist your "
+    description: ["Typically while riding, jump off of your unicycle with both feet leaving the pedals, and twist your ",
         "body 180° while leaving the unicycle in place. Land with both feet on either pedals or cranks."
         ].join("<br>"),
     startCombo: true,
@@ -1085,7 +1085,7 @@ const tricks = [
   {
     name: "Inside Jam",
     category: ["Jam"],
-    description: ["Place one of your feet on the tire against the crown with the other foot not touching the pedals or "
+    description: ["Place one of your feet on the tire against the crown with the other foot not touching the pedals or ",
         "crank. Be sure the inside of your foot that is on the tire is touching the frame"
         ].join("<br>"),
     startCombo: true,
