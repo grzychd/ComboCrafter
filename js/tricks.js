@@ -1,3 +1,4 @@
+window.tricks[];
 /* ---------- FOOT POSITION CONSTANTS ---------- */
 const pos1 = "Front foot inside",
       pos2 = "Back foot inside",
