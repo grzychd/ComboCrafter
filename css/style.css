@@ -1,0 +1,158 @@
+/* General Reset */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    position: relative;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between hamburger and Combo Crafter text */
+}
+
+.header-left .hamburger {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.header-left .site-title {
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.page-title {
+    text-align: center;
+    flex: 1;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+/* Right header link */
+.header-right a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Side Menu / Hamburger Menu */
+.side-menu {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #222;
+    padding: 20px;
+    transition: left 0.3s ease;
+    z-index: 1000;
+}
+
+.side-menu.open {
+    left: 0;
+}
+
+.side-menu a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 0;
+    font-size: 20px; /* Slightly bigger */
+}
+
+.side-menu a:not(:last-child) {
+    margin-bottom: 10px; /* Vertical spacing between links */
+}
+
+/* Main content */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+/* Trick preferences */
+.trick-item {
+    margin-bottom: 20px; /* Space between tricks */
+    text-align: left;
+}
+
+.trick-info {
+    margin-left: 20px; /* Indent description and sliders */
+    margin-top: 5px;
+}
+
+.trick-info p {
+    margin-bottom: 5px;
+}
+
+.trick-info input[type="range"] {
+    width: 150px; /* Smaller slider */
+    display: inline-block;
+    margin-left: 10px;
+}
+
+/* Dropdowns and text inputs */
+select, input[type="text"] {
+    width: 150px;
+    padding: 5px;
+    margin: 5px 0 15px 0;
+}
+
+/* Trick description text box */
+.trick-description {
+    width: 50ch; /* 50 characters */
+}
+
+/* Combo generator and single trick generator */
+.generator-options {
+    margin: 10px auto;
+    text-align: center;
+}
+
+/* Centered content for home page */
+.home-text {
+    text-align: center;
+    margin-top: 40px;
+}
+
+/* Info page placeholders */
+.info-box {
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin: 20px auto;
+    width: 80%;
+    text-align: left;
+}
+
+.info-box h3 {
+    margin-bottom: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .page-title {
+        font-size: 18px;
+    }
+
+    .header-left .site-title {
+        font-size: 18px;
+    }
+
+    .side-menu a {
+        font-size: 18px;
+    }
+}
