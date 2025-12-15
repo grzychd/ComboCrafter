@@ -1146,7 +1146,7 @@ const tricks = [
     endWeight: 20,
     skillLimits: {},
     footPosition: { start: [pos1, pos2, pos3, pos4], end: [pos1, pos2, pos3, pos4] }
-  },
+  }
 ];
 
 // userSettings is assumed to be an object storing the max values from settings.html
