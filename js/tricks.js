@@ -1,4 +1,3 @@
-window.tricks[];
 /* ---------- FOOT POSITION CONSTANTS ---------- */
 const pos1 = "Front foot inside",
       pos2 = "Back foot inside",
@@ -6,7 +5,7 @@ const pos1 = "Front foot inside",
       pos4 = "Back foot outside";
 
 /* ---------- TRICKS DATA ---------- */
-const tricks = [
+window.tricks = [
   {
   /* ---------- Crankflips / Flip + Spins ---------- */
     name: "Crankflip",
@@ -1136,7 +1135,7 @@ const tricks = [
   {
     name: "Temp",
     category: ["Other"],
-    description: ["This is a test object for the other category. Please ignore"]
+    description: ["This is a test object for the other category. Please ignore"],
     startCombo: false,
     middleCombo: false,
     endCombo: false,
@@ -1149,7 +1148,6 @@ const tricks = [
     footPosition: { start: [pos1, pos2, pos3, pos4], end: [pos1, pos2, pos3, pos4] }
   },
 ];
-window.tricks = tricks;
 
 // userSettings is assumed to be an object storing the max values from settings.html
 // Example:
