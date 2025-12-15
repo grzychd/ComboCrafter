@@ -71,11 +71,11 @@ header {
     color: white;
     text-decoration: none;
     padding: 12px 0;
-    font-size: 20px; /* Slightly bigger */
+    font-size: 22px; /* Slightly bigger */
 }
 
 .side-menu a:not(:last-child) {
-    margin-bottom: 10px; /* Vertical spacing between links */
+    margin-bottom: 15px; /* Vertical spacing between links */
 }
 
 /* Main content */
@@ -95,6 +95,10 @@ main {
     margin-top: 5px;
 }
 
+.trick-info.hidden {
+    display: none;
+}
+
 .trick-info p {
     margin-bottom: 5px;
 }
@@ -103,6 +107,10 @@ main {
     width: 150px; /* Smaller slider */
     display: inline-block;
     margin-left: 10px;
+}
+
+.trick-info input[type="range"] + input[type="range"] {
+    margin-top: 5px;
 }
 
 /* Dropdowns and text inputs */
@@ -131,11 +139,13 @@ select, input[type="text"] {
 
 /* Info page placeholders */
 .info-box {
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     padding: 15px;
     margin: 20px auto;
     width: 80%;
     text-align: left;
+    background-color: #333;
+    color: white;
 }
 
 .info-box h3 {
@@ -153,6 +163,6 @@ select, input[type="text"] {
     }
 
     .side-menu a {
-        font-size: 18px;
+        font-size: 20px;
     }
 }
