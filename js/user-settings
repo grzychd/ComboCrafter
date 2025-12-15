@@ -1,0 +1,42 @@
+// ---------- USER SETTINGS ----------
+
+// Default max values
+const defaultSettings = {
+    flip: 6,
+    spin: 1440,
+    roll: 5,
+    coast: 5,
+    bodyVarial: 360,
+    rev: 3,
+    twist: 720
+};
+
+// Load settings from localStorage or use defaults
+let userSettings = JSON.parse(localStorage.getItem('userSettings')) || { ...defaultSettings };
+
+// Apply userSettings values to dropdowns on page load
+window.addEventListener('DOMContentLoaded', () => {
+    for (const key in userSettings) {
+        const select = document.getElementById(`setting-${key}`);
+        if (select) select.value = userSettings[key];
+    }
+});
+
+// Update settings when dropdowns change
+function updateSetting(key, value) {
+    userSettings[key] = Number(value); // Ensure it's a number
+    localStorage.setItem('userSettings', JSON.stringify(userSettings));
+}
+
+// Add event listeners to all dropdowns
+window.addEventListener('DOMContentLoaded', () => {
+    for (const key in userSettings) {
+        const select = document.getElementById(`setting-${key}`);
+        if (select) {
+            select.addEventListener('change', (e) => updateSetting(key, e.target.value));
+        }
+    }
+});
+
+// Export userSettings globally for other scripts
+window.userSettings = userSettings;
