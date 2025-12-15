@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/tricks.js" defer></script>
+    <script src="js/user-settings.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+<header>
+    <div class="hamburger" id="hamburger-menu">&#9776;</div>
+    <h1 class="header-title">Combo Crafter</h1>
+</header>
+
+<nav id="sidebar" class="sidebar">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="combocrafter.html">Combo Generator</a></li>
+        <li><a href="single-trick-generator.html">Single Trick Generator</a></li>
+        <li><a href="user-settings.html">Settings</a></li>
+    </ul>
+</nav>
+
+<main class="centered-main">
+    <h2>User Settings</h2>
+
+    <section id="difficulty-settings">
+        <h3>Difficulty Settings</h3>
+        <label for="max-flip">Max Flips:</label>
+        <select id="max-flip">
+            ${[...Array(16).keys()].map(i => `<option value="${i}">${i}</option>`).join('')}
+        </select>
+
+        <label for="max-spin">Max Spins:</label>
+        <select id="max-spin">
+            ${[...Array(16).keys()].map(i => `<option value="${i}">${i}</option>`).join('')}
+        </select>
+
+        <label for="max-roll">Max Rolls:</label>
+        <select id="max-roll">
+            ${[...Array(16).keys()].map(i => `<option value="${i}">${i}</option>`).join('')}
+        </select>
+    </section>
+
+    <section id="trick-preferences">
+        <h3>Trick Preferences</h3>
+        <input type="text" id="trick-search" placeholder="Search tricks...">
+        <div id="trick-list"></div>
+    </section>
+</main>
+
+<script>
+    const hamburger = document.getElementById('hamburger-menu');
+    const sidebar = document.getElementById('sidebar');
+    hamburger.addEventListener('click', () => sidebar.classList.toggle('show'));
+
+    // Load user settings from localStorage
+    const maxFlip = document.getElementById('max-flip');
+    const maxSpin = document.getElementById('max-spin');
+    const maxRoll = document.getElementById('max-roll');
+    if (localStorage.getItem('userSettings')) {
+        const settings = JSON.parse(localStorage.getItem('userSettings'));
+        maxFlip.value = settings.maxFlip || 0;
+        maxSpin.value = settings.maxSpin || 0;
+        maxRoll.value = settings.maxRoll || 0;
+    }
+
+    // Trick search and weighting
+    const trickSearch = document.getElementById('trick-search');
+    const trickList = document.getElementById('trick-list');
+
+    function renderTrickList(query = '') {
+        trickList.innerHTML = '';
+        const results = tricks.filter(trick =>
+            trick.name.toLowerCase().includes(query.toLowerCase()) ||
+            trick.category.some(cat => cat.toLowerCase().includes(query.toLowerCase()))
+        );
+
+        results.forEach(trick => {
+            const div = document.createElement('div');
+            div.className = 'trick-item';
+            div.innerHTML = `
+                <strong>${trick.name}</strong><br>
+                ${trick.description}<br>
+                Preference: <input type="range" min="0" max="100" value="${trick.userWeight || 50}" class="trick-slider" data-trick="${trick.name}">
+                <span class="slider-value">${trick.userWeight || 50}</span>
+            `;
+            trickList.appendChild(div);
+
+            const slider = div.querySelector('.trick-slider');
+            const valueSpan = div.querySelector('.slider-value');
+            slider.addEventListener('input', () => {
+                valueSpan.textContent = slider.value;
+                trick.userWeight = parseInt(slider.value);
+                saveTrickPreferences();
+            });
+        });
+    }
+
+    function saveTrickPreferences() {
+        const settings = {
+            maxFlip: parseInt(maxFlip.value),
+            maxSpin: parseInt(maxSpin.value),
+            maxRoll: parseInt(maxRoll.value),
+            tricks: tricks.map(t => ({name: t.name, userWeight: t.userWeight || 50}))
+        };
+        localStorage.setItem('userSettings', JSON.stringify(settings));
+    }
+
+    trickSearch.addEventListener('input', () => renderTrickList(trickSearch.value));
+    window.addEventListener('DOMContentLoaded', () => renderTrickList());
+</script>
+</body>
+</html>

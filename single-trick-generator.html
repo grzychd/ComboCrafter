@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Trick Generator - Combo Crafter</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/user-settings.js" defer></script>
+    <script src="js/tricks.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <span class="logo-text" onclick="location.href='index.html'">Combo Crafter</span>
+    <span class="page-title">Single Trick Generator</span>
+    <a href="settings.html" class="settings-link">Settings</a>
+</header>
+
+<!-- Hamburger menu -->
+<nav id="menu" class="menu">
+    <a href="index.html">Home</a>
+    <a href="combocrafter.html">Combo Generator</a>
+    <a href="single-trick-generator.html">Single Trick Generator</a>
+    <a href="settings.html">Settings</a>
+    <a href="info.html">Info</a>
+</nav>
+
+<main>
+    <section class="single-trick-generator">
+        <label for="trickSelect">Select Trick:</label>
+        <select id="trickSelect">
+            <option value="">--Select a Trick--</option>
+        </select>
+        <div id="trickInfo" class="trick-info"></div>
+    </section>
+</main>
+
+<script>
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
+    hamburger.addEventListener("click", () => {
+        menu.classList.toggle("open");
+    });
+
+    const trickSelect = document.getElementById("trickSelect");
+    const trickInfo = document.getElementById("trickInfo");
+
+    function filterTricksBySettings() {
+        const limits = userSettings; // assumes userSettings is updated via user-settings.js
+        return tricks.filter(trick => {
+            for (const key in trick.skillLimits) {
+                if (limits[key] < trick.skillLimits[key]) return false;
+            }
+            return true;
+        });
+    }
+
+    function populateTrickDropdown() {
+        const availableTricks = filterTricksBySettings();
+        trickSelect.innerHTML = '<option value="">--Select a Trick--</option>';
+        availableTricks.forEach((trick, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = trick.name;
+            trickSelect.appendChild(option);
+        });
+    }
+
+    trickSelect.addEventListener('change', () => {
+        const selectedIndex = trickSelect.value;
+        if (selectedIndex === "") {
+            trickInfo.innerHTML = "";
+            return;
+        }
+        const trick = filterTricksBySettings()[selectedIndex];
+        trickInfo.innerHTML = `<strong>${trick.name}</strong><br>
+                               Category: ${trick.category.join(", ")}<br>
+                               Description: ${trick.description}`;
+    });
+
+    populateTrickDropdown();
+</script>
+</body>
+</html>

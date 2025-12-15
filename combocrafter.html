@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combo Generator - Combo Crafter</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/user-settings.js" defer></script>
+    <script src="js/tricks.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <span class="logo-text" onclick="location.href='index.html'">Combo Crafter</span>
+    <span class="page-title">Combo Generator</span>
+    <a href="settings.html" class="settings-link">Settings</a>
+</header>
+
+<!-- Hamburger menu -->
+<nav id="menu" class="menu">
+    <a href="index.html">Home</a>
+    <a href="combocrafter.html">Combo Generator</a>
+    <a href="single-trick-generator.html">Single Trick Generator</a>
+    <a href="settings.html">Settings</a>
+    <a href="info.html">Info</a>
+</nav>
+
+<main>
+    <section class="combo-options">
+        <div class="trick-types">
+            <h3>Enable Trick Types</h3>
+            <label><input type="checkbox" class="trick-type" value="Flip" checked> Flip</label>
+            <label><input type="checkbox" class="trick-type" value="Spin" checked> Spin</label>
+            <label><input type="checkbox" class="trick-type" value="Roll" checked> Roll</label>
+            <label><input type="checkbox" class="trick-type" value="Coast" checked> Coast</label>
+            <label><input type="checkbox" class="trick-type" value="Body Varial" checked> Body Varial</label>
+            <label><input type="checkbox" class="trick-type" value="Rev" checked> Rev</label>
+            <label><input type="checkbox" class="trick-type" value="Twist" checked> Twist</label>
+        </div>
+
+        <div class="combo-length">
+            <label>Combo Length:
+                <select id="comboLength">
+                    ${Array.from({length:14}, (_,i)=>`<option value="${i+2}">${i+2}</option>`).join('')}
+                </select>
+            </label>
+        </div>
+
+        <button id="generateCombo">Generate Combo</button>
+        <div id="comboOutput" class="combo-output"></div>
+    </section>
+</main>
+
+<script>
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
+    hamburger.addEventListener("click", () => {
+        menu.classList.toggle("open");
+    });
+
+    const generateButton = document.getElementById("generateCombo");
+    const output = document.getElementById("comboOutput");
+
+    function filterTricksBySettings() {
+        const selectedTypes = Array.from(document.querySelectorAll('.trick-type:checked')).map(cb => cb.value);
+        const filtered = tricks.filter(trick => {
+            // Only selected categories
+            const typeMatch = trick.category.some(cat => selectedTypes.includes(cat));
+            if (!typeMatch) return false;
+
+            // Respect skillLimits from user settings
+            const limits = userSettings; // assumes userSettings is updated via user-settings.js
+            for (const key in trick.skillLimits) {
+                if (limits[key] < trick.skillLimits[key]) return false;
+            }
+            return true;
+        });
+        return filtered;
+    }
+
+    generateButton.addEventListener("click", () => {
+        const length = parseInt(document.getElementById("comboLength").value);
+        const availableTricks = filterTricksBySettings();
+        if (availableTricks.length === 0) {
+            output.textContent = "No tricks selected!";
+            return;
+        }
+
+        let combo = [];
+        for (let i = 0; i < length; i++) {
+            const trick = availableTricks[Math.floor(Math.random() * availableTricks.length)];
+            combo.push(trick.name);
+        }
+
+        output.innerHTML = "<strong>Combo:</strong> " + combo.join(" → ");
+    });
+</script>
+</body>
+</html>

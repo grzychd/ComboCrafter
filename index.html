@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Combo Crafter</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="hamburger-container">
+        <button id="hamburger">&#9776;</button>
+    </div>
+    <div class="logo-container">
+        <a href="index.html" class="logo-text">Combo Crafter</a>
+    </div>
+    <div class="settings-container">
+        <a href="settings.html" class="settings-link">Settings</a>
+    </div>
+</header>
+
+<!-- Hamburger Menu Content -->
+<nav id="hamburger-menu" class="hidden">
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="combocrafter.html">Combo Generator</a></li>
+        <li><a href="single-trick-generator.html">Single Trick Generator</a></li>
+        <li><a href="settings.html">Settings</a></li>
+        <li><a href="info.html">Info</a></li>
+    </ul>
+</nav>
+
+<!-- Main Content -->
+<main>
+    <h1>Welcome to Combo Crafter</h1>
+    <p id="trick-count">There are currently 0 tricks implemented!</p>
+
+    <section id="trick-of-the-day">
+        <h2>Trick of the Day</h2>
+        <div id="trick-display">
+            <!-- Trick name and description will appear here -->
+        </div>
+    </section>
+</main>
+
+<!-- Scripts -->
+<script src="js/tricks.js"></script>
+<script src="js/user-settings.js"></script>
+<script src="js/main.js"></script>
+<script>
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const menu = document.getElementById('hamburger-menu');
+
+    hamburger.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+    });
+
+    // Populate trick count dynamically
+    const trickCountElement = document.getElementById('trick-count');
+    if (typeof tricks !== 'undefined') {
+        trickCountElement.textContent = `There are currently ${tricks.length} tricks implemented!`;
+    }
+
+    // Display Trick of the Day
+    const trickDisplay = document.getElementById('trick-display');
+    if (typeof tricks !== 'undefined' && tricks.length > 0) {
+        const trickOfTheDay = tricks[Math.floor(Math.random() * tricks.length)];
+        const trickName = document.createElement('h3');
+        trickName.textContent = trickOfTheDay.name;
+        const trickDesc = document.createElement('p');
+        trickDesc.textContent = trickOfTheDay.description;
+        trickDisplay.appendChild(trickName);
+        trickDisplay.appendChild(trickDesc);
+    } else {
+        trickDisplay.textContent = "No tricks available.";
+    }
+</script>
+</body>
+</html>

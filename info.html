@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings - Combo Crafter</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+    <div class="header-left">
+        <button id="hamburger">&#9776;</button>
+        <a href="index.html" class="logo-text">Combo Crafter</a>
+    </div>
+    <h1 class="page-title">User Settings</h1>
+    <div class="header-right">
+        <a href="settings.html" class="settings-link">Settings</a>
+    </div>
+</header>
+
+<nav id="side-menu" class="side-menu">
+    <a href="index.html">Home</a>
+    <a href="settings.html">Settings</a>
+    <a href="combocrafter.html">Combo Generator</a>
+    <a href="single-trick-generator.html">Single Trick Generator</a>
+    <a href="info.html">Info</a>
+</nav>
+
+<main>
+    <section id="user-settings-section">
+        <div class="setting-item">
+            <label for="maxFlip">Max Flips:</label>
+            <select id="maxFlip"></select>
+        </div>
+        <div class="setting-item">
+            <label for="maxSpin">Max Spins:</label>
+            <select id="maxSpin"></select>
+        </div>
+        <div class="setting-item">
+            <label for="maxRoll">Max Rolls:</label>
+            <select id="maxRoll"></select>
+        </div>
+        <div class="setting-item">
+            <label for="maxCoast">Max Coasts:</label>
+            <select id="maxCoast"></select>
+        </div>
+        <div class="setting-item">
+            <label for="maxBodyVarial">Max Body Varials:</label>
+            <select id="maxBodyVarial"></select>
+        </div>
+        <div class="setting-item">
+            <label for="maxRev">Max Revs:</label>
+            <select id="maxRev"></select>
+        </div>
+        <div class="setting-item">
+            <label for="maxTwist">Max Twists:</label>
+            <select id="maxTwist"></select>
+        </div>
+
+        <div id="trick-preferences">
+            <!-- Trick preference items will be dynamically added here -->
+        </div>
+    </section>
+</main>
+
+<script src="js/main.js"></script>
+<script src="js/tricks.js"></script>
+<script src="js/user-settings.js"></script>
+
+<script>
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger');
+    const sideMenu = document.getElementById('side-menu');
+    hamburger.addEventListener('click', () => {
+        sideMenu.classList.toggle('open');
+    });
+
+    // Populate max value dropdowns
+    const populateSelect = (id, values) => {
+        const select = document.getElementById(id);
+        values.forEach(v => {
+            const option = document.createElement('option');
+            option.value = v;
+            option.textContent = v;
+            select.appendChild(option);
+        });
+        select.value = Math.max(...values); // default to max
+    }
+
+    populateSelect('maxFlip', [0,1,2,3,4,5,6]);
+    populateSelect('maxSpin', [0,180,360,540,720,900,1080,1260,1440]);
+    populateSelect('maxRoll', [0,1,2,3,4,5]);
+    populateSelect('maxCoast', [0,1,2,3,4,5]);
+    populateSelect('maxBodyVarial', [0,180,360]);
+    populateSelect('maxRev', [0,1,2,3]);
+    populateSelect('maxTwist', [0,180,360,540,720]);
+
+    // Render trick preferences dynamically from tricks array
+    const trickPreferencesContainer = document.getElementById('trick-preferences');
+    tricks.forEach((trick, index) => {
+        const trickDiv = document.createElement('div');
+        trickDiv.classList.add('trick-item');
+
+        const trickName = document.createElement('button');
+        trickName.textContent = trick.name;
+        trickName.classList.add('trick-name');
+        trickDiv.appendChild(trickName);
+
+        const trickInfo = document.createElement('div');
+        trickInfo.classList.add('trick-info');
+        trickInfo.style.display = 'none';
+
+        const description = document.createElement('p');
+        description.textContent = trick.description;
+        description.style.marginLeft = '20px';
+        trickInfo.appendChild(description);
+
+        const sliderContainer = document.createElement('div');
+        sliderContainer.style.marginLeft = '40px';
+        sliderContainer.style.marginTop = '5px';
+        sliderContainer.style.display = 'flex';
+        sliderContainer.style.alignItems = 'center';
+
+        const slider = document.createElement('input');
+        slider.type = 'range';
+        slider.min = 0;
+        slider.max = 100;
+        slider.value = trick.userWeight;
+        slider.style.width = '150px';
+
+        const sliderLabel = document.createElement('span');
+        sliderLabel.textContent = `Preference: ${trick.userWeight}`;
+        sliderLabel.style.marginLeft = '10px';
+
+        slider.addEventListener('input', () => {
+            sliderLabel.textContent = `Preference: ${slider.value}`;
+            trick.userWeight = parseInt(slider.value);
+        });
+
+        sliderContainer.appendChild(slider);
+        sliderContainer.appendChild(sliderLabel);
+        trickInfo.appendChild(sliderContainer);
+
+        // Start / Middle / End sliders if enabled in trick
+        ['startCombo','middleCombo','endCombo'].forEach(pos => {
+            if (trick[pos]) {
+                const comboSliderContainer = document.createElement('div');
+                comboSliderContainer.style.marginLeft = '40px';
+                comboSliderContainer.style.marginTop = '5px';
+                comboSliderContainer.style.display = 'flex';
+                comboSliderContainer.style.alignItems = 'center';
+
+                const comboSlider = document.createElement('input');
+                comboSlider.type = 'range';
+                comboSlider.min = 0;
+                comboSlider.max = 100;
+                comboSlider.value = trick[`${pos}Weight`] || 0;
+                comboSlider.style.width = '150px';
+
+                const comboLabel = document.createElement('span');
+                comboLabel.textContent = `${pos.replace('Combo','')} combo: ${comboSlider.value}`;
+                comboLabel.style.marginLeft = '10px';
+
+                comboSlider.addEventListener('input', () => {
+                    comboLabel.textContent = `${pos.replace('Combo','')} combo: ${comboSlider.value}`;
+                    trick[`${pos}Weight`] = parseInt(comboSlider.value);
+                });
+
+                comboSliderContainer.appendChild(comboSlider);
+                comboSliderContainer.appendChild(comboLabel);
+                trickInfo.appendChild(comboSliderContainer);
+            }
+        });
+
+        trickDiv.appendChild(trickInfo);
+        trickName.addEventListener('click', () => {
+            trickInfo.style.display = trickInfo.style.display === 'none' ? 'block' : 'none';
+        });
+
+        trickPreferencesContainer.appendChild(trickDiv);
+    });
+</script>
+</body>
+</html>

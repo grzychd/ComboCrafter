@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Combo Crafter</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/user-settings.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+<body>
+<!-- Header -->
+<header>
+    <div class="hamburger" id="hamburger">&#9776;</div>
+    <span class="logo-text" onclick="location.href='index.html'">Combo Crafter</span>
+    <span class="page-title">Settings</span>
+    <a href="settings.html" class="settings-link">Settings</a>
+</header>
+
+<!-- Hamburger menu items -->
+<nav id="menu" class="menu">
+    <a href="index.html">Home</a>
+    <a href="combocrafter.html">Combo Generator</a>
+    <a href="single-trick-generator.html">Single Trick Generator</a>
+    <a href="settings.html">Settings</a>
+    <a href="info.html">Info</a>
+</nav>
+
+<main>
+    <section class="difficulty-settings">
+        <h2>Difficulty Settings</h2>
+        <div class="settings-grid">
+            <label>Max Flips:
+                <select id="maxFlips">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6" selected>6</option>
+                </select>
+            </label>
+            <label>Max Spins:
+                <select id="maxSpins">
+                    <option value="0">0</option>
+                    <option value="180">180</option>
+                    <option value="360">360</option>
+                    <option value="540">540</option>
+                    <option value="720">720</option>
+                    <option value="900">900</option>
+                    <option value="1080">1080</option>
+                    <option value="1260">1260</option>
+                    <option value="1440" selected>1440</option>
+                </select>
+            </label>
+            <label>Max Rolls:
+                <select id="maxRolls">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                </select>
+            </label>
+            <label>Max Coasts:
+                <select id="maxCoasts">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5" selected>5</option>
+                </select>
+            </label>
+            <label>Max Body Varials:
+                <select id="maxBodyVarials">
+                    <option value="0">0</option>
+                    <option value="180">180</option>
+                    <option value="360" selected>360</option>
+                </select>
+            </label>
+            <label>Max Revs:
+                <select id="maxRevs">
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3" selected>3</option>
+                </select>
+            </label>
+            <label>Max Twists:
+                <select id="maxTwists">
+                    <option value="0">0</option>
+                    <option value="180">180</option>
+                    <option value="360">360</option>
+                    <option value="540">540</option>
+                    <option value="720" selected>720</option>
+                </select>
+            </label>
+        </div>
+    </section>
+
+    <section class="trick-preferences">
+        <h2>Trick Preferences</h2>
+        <div id="trickList">
+            <!-- Tricks will be populated here dynamically -->
+        </div>
+    </section>
+</main>
+
+<script>
+    // Hamburger toggle
+    const hamburger = document.getElementById("hamburger");
+    const menu = document.getElementById("menu");
+    hamburger.addEventListener("click", () => {
+        menu.classList.toggle("open");
+    });
+
+    // Populate trick list dynamically
+    const trickContainer = document.getElementById("trickList");
+    tricks.forEach(trick => {
+        const trickDiv = document.createElement("div");
+        trickDiv.className = "trick-item";
+        trickDiv.innerHTML = `
+            <span class="trick-name">${trick.name}</span>
+            <div class="trick-details" style="display:none;">
+                <p class="trick-description">${trick.description}</p>
+                <label>Preference: <span class="pref-value">${trick.userWeight}</span>
+                    <input type="range" min="0" max="100" value="${trick.userWeight}" class="preference-slider">
+                </label>
+                ${trick.startCombo ? `<label>Start combo: <input type="range" min="0" max="100" value="${trick.startWeight}" class="start-slider"></label>` : ""}
+                ${trick.middleCombo ? `<label>Middle combo: <input type="range" min="0" max="100" value="${trick.middleWeight}" class="middle-slider"></label>` : ""}
+                ${trick.endCombo ? `<label>End combo: <input type="range" min="0" max="100" value="${trick.endWeight}" class="end-slider"></label>` : ""}
+            </div>
+        `;
+        trickDiv.querySelector(".trick-name").addEventListener("click", () => {
+            const details = trickDiv.querySelector(".trick-details");
+            details.style.display = details.style.display === "none" ? "block" : "none";
+        });
+        trickContainer.appendChild(trickDiv);
+    });
+</script>
+</body>
+</html>
