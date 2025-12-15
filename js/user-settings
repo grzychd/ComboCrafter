@@ -1,6 +1,6 @@
-// ---------- USER SETTINGS ----------
+// ---------- USER SETTINGS ---------- //
 
-// Default max values
+Default max values
 const defaultSettings = {
     flip: 6,
     spin: 1440,
