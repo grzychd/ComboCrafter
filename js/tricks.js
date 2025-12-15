@@ -1008,12 +1008,12 @@ window.tricks = [
     endWeight: 20,
     skillLimits: {roll: 1},
     footPosition: { start: [pos1, pos2, pos3], end: [pos1, pos3] }
-  }
+  },
   /* ---------- Tires ---------- */
   {
     name: "Monkey flip",
     category: ["Spin", "Tire", "Flip"],
-    description: ["While hopping on the tire, jump into the air and flip the tire 1 revolution",
+    description: ["While hopping on the tire, jump into the air and flip the tire 1 revolution"],
     startCombo: true,
     middleCombo: true,
     endCombo: true,
@@ -1103,7 +1103,7 @@ window.tricks = [
   {
     name: "Rev",
     category: ["Rev"],
-    description: ["While riding, jump into the air and rotate the cranks 1 full revolution with your feet remaining on the pedals"
+    description: ["While riding, jump into the air and rotate the cranks 1 full revolution with your feet remaining on the pedals"],
     startCombo: false,
     middleCombo: false,
     endCombo: false,
@@ -1119,7 +1119,7 @@ window.tricks = [
   {
     name: "180 hoptwist",
     category: ["twist"],
-    description: ["While riding, jump into the air and rotate your body and unicycle 180 degrees"
+    description: ["While riding, jump into the air and rotate your body and unicycle 180 degrees"],
     startCombo: false,
     middleCombo: false,
     endCombo: false,
