@@ -1013,7 +1013,7 @@ const tricks = [
   {
     name: "Monkey flip",
     category: ["Spin", "Tire", "Flip"],
-    description: ["While hopping on the tire, jump into the air and flip the tire 1 revolution"],
+    description: "While hopping on the tire, jump into the air and flip the tire 1 revolution",
     startCombo: true,
     middleCombo: true,
     endCombo: true,
